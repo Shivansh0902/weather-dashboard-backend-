@@ -13,6 +13,9 @@ if not API_KEY:
     raise RuntimeError("OPENWEATHER_API_KEY not set in .env")
 
 app = FastAPI()
+@app.get("/healthz")
+async def healthz():
+    return {"status": "ok"}
 
 ##── Add this block ──
 app.add_middleware(
