@@ -1,0 +1,17 @@
+name: Keep Backend Awake
+
+# runs every 10 minutes + manual trigger
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+jobs:
+  ping-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Curl health endpoint
+        run: |
+          curl -fsS https://weather-dashboard-backend-kxei.onrender.com/healthz \
+            && echo "✅ Backend is awake" \
+            || echo "❌ Backend is down"
